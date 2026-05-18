@@ -1,14 +1,49 @@
 import { useState } from 'react'
+import { supabase, isSupabaseConfigured } from '../supabaseClient'
 
 export default function SchedulePickup() {
   const blank = { name: '', type: 'Restaurant', phone: '', city: '', address: '', quantity: '', date: '' }
   const [form, setForm] = useState(blank)
   const [done, setDone] = useState(false)
+  const [saving, setSaving] = useState(false)
 
   const change = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault()
+    setSaving(true)
+
+    // Save to Supabase if configured
+    if (isSupabaseConfigured()) {
+      try {
+        // Save as a supplier
+        await supabase.from('suppliers').upsert({
+          id: `SUP-${Date.now()}`,
+          name: form.name,
+          type: form.type,
+          contact: form.phone,
+          address: `${form.address}, ${form.city}`,
+          avg_monthly_oil: Number(form.quantity) || 0,
+          status: 'Active',
+        })
+
+        // Save as a scheduled pickup
+        await supabase.from('pickups').insert({
+          id: `PK-${Date.now()}`,
+          supplier_name: form.name,
+          quantity: Number(form.quantity) || 0,
+          pickup_date: form.date || new Date().toISOString().split('T')[0],
+          status: 'Scheduled',
+          collector: 'Unassigned',
+          price_paid: 0,
+          quality_ffa: 0,
+        })
+      } catch (err) {
+        console.error('Supabase save error:', err)
+      }
+    }
+
+    // Also send via WhatsApp
     const msg =
       `🫙 *BIOCYCLE — UCO PICKUP REQUEST*\n\n` +
       `👤 *Name:* ${form.name}\n` +
@@ -20,6 +55,8 @@ export default function SchedulePickup() {
       `📅 *Preferred Date:* ${form.date || 'Flexible'}\n\n` +
       `Please confirm this pickup. Thank you!`
     window.open(`https://wa.me/917015546885?text=${encodeURIComponent(msg)}`, '_blank')
+
+    setSaving(false)
     setDone(true)
     setTimeout(() => { setDone(false); setForm(blank) }, 6000)
   }
@@ -110,10 +147,10 @@ export default function SchedulePickup() {
                   </div>
                 </div>
 
-                <button type="submit" className="form-submit-btn">
-                  Send via WhatsApp →
+                <button type="submit" className="form-submit-btn" disabled={saving}>
+                  {saving ? 'Sending...' : 'Send via WhatsApp →'}
                 </button>
-                <p className="form-note">Your details are sent directly via WhatsApp. We never store sensitive data.</p>
+                <p className="form-note">Your details are sent directly via WhatsApp & saved securely.</p>
               </form>
             )}
           </div>
