@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Routes, Route, NavLink, useNavigate } from 'react-router-dom'
 import { supabase, isSupabaseConfigured, saveSupabaseKeys } from '../supabaseClient'
+import OperationsMap from './OperationsMap'
 import './admin.css'
 
 /* ── SETUP SCREEN (if Supabase not configured) ── */
@@ -33,6 +34,7 @@ function Sidebar({ collapsed, setCollapsed }) {
     { to: '/admin/suppliers', icon: '🏪', label: 'Suppliers' },
     { to: '/admin/buyers', icon: '🏭', label: 'Buyers' },
     { to: '/admin/sales', icon: '💰', label: 'Sales' },
+    { to: '/admin/map', icon: '🗺️', label: 'Map View' },
     { to: '/admin/settings', icon: '⚙️', label: 'Settings' },
   ]
   return (
@@ -448,6 +450,7 @@ export default function AdminDashboard() {
           <Route path="suppliers" element={<SuppliersPage />} />
           <Route path="buyers" element={<BuyersPage />} />
           <Route path="sales" element={<SalesPage />} />
+          <Route path="map" element={<div className="page-header"><h1>🗺️ Operations Map</h1><p>Live view of all pickup and selling locations</p><OperationsMap /></div>} />
           <Route path="settings" element={<SettingsPage />} />
         </Routes>
       </main>
