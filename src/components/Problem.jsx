@@ -35,14 +35,20 @@ export default function Problem() {
   return (
     <section className="section problem-section" id="problem">
       <div className="container">
-        <div className="section-header">
-          <span className="section-tag">The Problem</span>
-          <h2 className="section-heading">
-            Improper Disposal is <span className="text-red">Devastating</span> Our Environment
-          </h2>
-          <p className="section-desc">
-            India generates over 23 million tonnes of used cooking oil every year. Most of it ends up in drains, landfills, or is illegally resold.
-          </p>
+        <div className="problem-top-layout">
+          <div className="section-header">
+            <span className="section-tag">The Problem</span>
+            <h2 className="section-heading">
+              Improper Disposal is <span className="text-red">Devastating</span> Our Environment
+            </h2>
+            <p className="section-desc">
+              India generates over 23 million tonnes of used cooking oil every year. Most of it ends up in drains, landfills, or is illegally resold.
+            </p>
+          </div>
+          <div className="problem-highlight-box">
+            <span className="problem-highlight-num">23M</span>
+            <span className="problem-highlight-label">Tonnes of UCO generated annually in India — most goes unrecycled</span>
+          </div>
         </div>
 
         <div className="problem-grid">

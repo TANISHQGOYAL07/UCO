@@ -51,6 +51,10 @@ export default function SchedulePickup() {
                 </div>
               ))}
             </div>
+
+            <div className="schedule-image-wrapper">
+              <img src="/schedule-illustration.png" alt="Schedule a pickup" className="schedule-image" />
+            </div>
           </div>
 
           <div className="schedule-form-card">

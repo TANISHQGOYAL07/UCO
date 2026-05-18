@@ -5,10 +5,8 @@ export default function Hero() {
 
   return (
     <section className="hero" id="hero">
-      {/* Animated grid background */}
       <div className="hero-grid-bg" />
 
-      {/* Floating oil droplets */}
       <div className="hero-particles">
         {Array.from({ length: 14 }, (_, i) => (
           <div
@@ -25,44 +23,48 @@ export default function Hero() {
         ))}
       </div>
 
-      <div className="hero-content">
-        {/* Trust badge */}
-        <div className="hero-badge">
-          <span className="badge-dot" />
-          CPCB Certified · Pan-India Operations
+      <div className="hero-split">
+        <div className="hero-content">
+          <div className="hero-badge">
+            <span className="badge-dot" />
+            CPCB Certified · Pan-India Operations
+          </div>
+
+          <h1 className="hero-title">
+            Your Used Cooking Oil
+            <br />
+            <span className="hero-gradient-text">Deserves a Second Life</span>
+          </h1>
+
+          <p className="hero-subtitle">
+            Free doorstep pickup from restaurants, hotels & households across India.
+            We convert waste oil into certified biofuel — turning pollution into power.
+          </p>
+
+          <div className="hero-actions">
+            <button className="btn-hero-primary" onClick={() => go('schedule')}>
+              <span className="btn-icon">→</span>
+              Schedule Free Pickup
+            </button>
+            <button className="btn-hero-outline" onClick={() => go('how-it-works')}>
+              See How It Works
+            </button>
+          </div>
+
+          <div className="hero-trust">
+            <div className="trust-avatars">
+              {['🧑‍🍳', '👨‍🍳', '👩‍🍳', '🧑‍🔧'].map((e, i) => (
+                <div key={i} className="trust-avatar" style={{ '--i': i }}>{e}</div>
+              ))}
+            </div>
+            <div className="trust-text">
+              <strong>500+ establishments</strong> already partner with us
+            </div>
+          </div>
         </div>
 
-        <h1 className="hero-title">
-          Your Used Cooking Oil
-          <br />
-          <span className="hero-gradient-text">Deserves a Second Life</span>
-        </h1>
-
-        <p className="hero-subtitle">
-          Free doorstep pickup from restaurants, hotels & households across India.
-          We convert waste oil into certified biofuel — turning pollution into power.
-        </p>
-
-        <div className="hero-actions">
-          <button className="btn-hero-primary" onClick={() => go('schedule')}>
-            <span className="btn-icon">→</span>
-            Schedule Free Pickup
-          </button>
-          <button className="btn-hero-outline" onClick={() => go('how-it-works')}>
-            See How It Works
-          </button>
-        </div>
-
-        {/* Trust indicators */}
-        <div className="hero-trust">
-          <div className="trust-avatars">
-            {['🧑‍🍳', '👨‍🍳', '👩‍🍳', '🧑‍🔧'].map((e, i) => (
-              <div key={i} className="trust-avatar" style={{ '--i': i }}>{e}</div>
-            ))}
-          </div>
-          <div className="trust-text">
-            <strong>500+ establishments</strong> already partner with us
-          </div>
+        <div className="hero-image-wrapper">
+          <img src="/hero-illustration.png" alt="BioCycle UCO Collection Process" className="hero-image" />
         </div>
       </div>
 
