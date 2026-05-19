@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import tt from '@tomtom-international/web-sdk-maps';
-import '@tomtom-international/web-sdk-maps/dist/tomtom.css';
+import '@tomtom-international/web-sdk-maps/dist/maps.css';
 import { supabase } from '../supabaseClient';
 
 export default function OperationsMap() {
