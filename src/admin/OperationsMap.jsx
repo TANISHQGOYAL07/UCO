@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import tt from '@tomtom-international/web-sdk-maps';
+import * as ttServices from '@tomtom-international/web-sdk-services';
 import '@tomtom-international/web-sdk-maps/dist/maps.css';
 import { supabase } from '../supabaseClient';
 
@@ -106,6 +107,46 @@ export default function OperationsMap() {
           }
         });
 
+        // 3. Fetch LIVE Restaurant Leads from TomTom API!
+        try {
+          const apiKey = import.meta.env.VITE_TOMTOM_API_KEY || 'your_tomtom_api_key_here';
+          const poiResponse = await ttServices.services.poiSearch({
+            key: apiKey,
+            query: 'restaurant',
+            center: [77.2090, 28.6139],
+            radius: 15000, // 15km radius
+            limit: 20
+          });
+
+          if (poiResponse.results && poiResponse.results.length > 0) {
+            poiResponse.results.forEach(poi => {
+              const popup = new tt.Popup({ offset: 35 }).setHTML(`
+                <div style="padding: 10px;">
+                  <h4 style="margin: 0 0 5px 0;">${poi.poi.name}</h4>
+                  <p style="margin: 0; font-size: 12px; color: #f97316;"><strong>LIVE LEAD</strong></p>
+                  <p style="margin: 5px 0 0 0; font-size: 12px;">${poi.address.freeformAddress}</p>
+                  <button style="margin-top: 8px; padding: 4px 8px; background: #f97316; color: white; border: none; border-radius: 4px; cursor: pointer;">Add to Suppliers</button>
+                </div>
+              `);
+
+              const markerElement = document.createElement('div');
+              markerElement.style.width = '24px';
+              markerElement.style.height = '24px';
+              markerElement.style.backgroundColor = '#f97316'; // Orange for leads
+              markerElement.style.borderRadius = '50%';
+              markerElement.style.border = '2px solid white';
+              markerElement.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
+
+              new tt.Marker({ element: markerElement })
+                .setLngLat([poi.position.lng, poi.position.lat])
+                .setPopup(popup)
+                .addTo(map);
+            });
+          }
+        } catch (poiError) {
+          console.error("Live POI fetch failed:", poiError);
+        }
+
       } catch (error) {
         console.error("Error loading map data:", error);
       } finally {
@@ -131,9 +172,13 @@ export default function OperationsMap() {
           <div style={{ width: '16px', height: '16px', backgroundColor: '#10b981', borderRadius: '50%', marginRight: '8px', border: '2px solid white', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}></div>
           <span style={{ fontSize: '13px' }}>Pickup Locations</span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
           <div style={{ width: '16px', height: '16px', backgroundColor: '#3b82f6', borderRadius: '50%', marginRight: '8px', border: '2px solid white', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}></div>
-          <span style={{ fontSize: '13px' }}>Selling Locations</span>
+          <span style={{ fontSize: '13px' }}>Selling Locations (Buyers)</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ width: '16px', height: '16px', backgroundColor: '#f97316', borderRadius: '50%', marginRight: '8px', border: '2px solid white', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}></div>
+          <span style={{ fontSize: '13px' }}>Live Local Leads (API)</span>
         </div>
       </div>
     </div>
