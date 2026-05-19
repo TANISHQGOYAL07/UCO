@@ -336,10 +336,12 @@ function SuppliersPage() {
         { key: 'type', label: 'Type', type: 'select', options: ['Restaurant', 'Hotel', 'Dhaba', 'Cloud Kitchen', 'Canteen', 'Household', 'Other'] },
         { key: 'contact', label: 'Phone', placeholder: '+91 ...' },
         { key: 'address', label: 'Address', placeholder: 'Full address' },
+        { key: 'latitude', label: 'Latitude', type: 'number' },
+        { key: 'longitude', label: 'Longitude', type: 'number' },
         { key: 'avg_monthly_oil', label: 'Avg Monthly Oil (L)', type: 'number' },
         { key: 'status', label: 'Status', type: 'select', options: ['Active', 'Inactive'] },
       ]}
-      defaultValues={{ name: '', type: 'Restaurant', contact: '', address: '', avg_monthly_oil: 0, status: 'Active' }}
+      defaultValues={{ name: '', type: 'Restaurant', contact: '', address: '', latitude: 28.4595, longitude: 77.0266, avg_monthly_oil: 0, status: 'Active' }}
     />
   )
 }
@@ -362,9 +364,11 @@ function BuyersPage() {
         { key: 'type', label: 'Type', type: 'select', options: ['Biodiesel Plant', 'Chemical Manufacturer', 'Export', 'Other'] },
         { key: 'contact', label: 'Contact', placeholder: '+91 ...' },
         { key: 'contract_rate', label: 'Contract Rate ₹/L', type: 'number' },
+        { key: 'latitude', label: 'Latitude', type: 'number' },
+        { key: 'longitude', label: 'Longitude', type: 'number' },
         { key: 'total_bought', label: 'Total Bought (L)', type: 'number' },
       ]}
-      defaultValues={{ name: '', type: 'Biodiesel Plant', contact: '', contract_rate: 0, total_bought: 0 }}
+      defaultValues={{ name: '', type: 'Biodiesel Plant', contact: '', contract_rate: 0, latitude: 28.4595, longitude: 77.0266, total_bought: 0 }}
     />
   )
 }
