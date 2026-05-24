@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://biocycle.in/sitemap.xml
+Sitemap: https://uco.vercel.app/sitemap.xml
