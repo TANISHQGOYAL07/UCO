@@ -281,6 +281,7 @@ body{
 .problem-card-stat{
   display:inline-flex;align-items:baseline;gap:8px;margin-bottom:14px;
   padding:10px 14px;border-radius:var(--radius-xs);background:var(--r100);
+  white-space:nowrap;
 }
 .problem-stat-num{font-family:var(--font);font-size:1.3rem;font-weight:900;color:var(--r500)}
 .problem-stat-label{font-size:.82rem;color:var(--g800b);font-weight:600}

@@ -181,7 +181,11 @@ function OverviewPage() {
       <div className="overview-section">
         <h2>Recent Pickups</h2>
         {recentPickups.length === 0 ? (
-          <div className="table-empty">No pickups yet. Bookings from the website will appear here.</div>
+          <div className="empty-state-card">
+            <div className="empty-icon">📭</div>
+            <h3>No Pickups Yet</h3>
+            <p>Bookings from the website will appear here automatically.</p>
+          </div>
         ) : (
           <div className="table-wrap">
             <table className="data-table">
